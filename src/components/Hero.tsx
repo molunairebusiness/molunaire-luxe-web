@@ -10,8 +10,9 @@ const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   const scrollToServices = () => {
     const element = document.querySelector("#services");
@@ -28,15 +29,15 @@ const Hero = () => {
     >
       {/* Parallax Background */}
       <motion.div
-        style={{ y }}
-        className="absolute inset-0 z-0"
+        style={{ y, scale }}
+        className="absolute inset-0 z-0 will-change-transform"
       >
         <img
           src={heroBg}
           alt="Luxury abstract background"
-          className="w-full h-full object-cover"
+          className="w-full h-[120%] object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
       </motion.div>
 
       {/* Floating Elements */}
@@ -72,17 +73,6 @@ const Hero = () => {
         style={{ opacity }}
         className="relative z-10 container mx-auto px-6 lg:px-12 text-center"
       >
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="mb-6"
-        >
-          <span className="inline-block font-body text-xs tracking-[0.3em] uppercase text-primary/80 mb-4">
-            Premium Web Design Studio
-          </span>
-        </motion.div>
-
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
