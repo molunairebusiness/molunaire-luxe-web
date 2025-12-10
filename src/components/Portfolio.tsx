@@ -1,6 +1,6 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import { ExternalLink, X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import portfolioFitness from "@/assets/portfolio-fitness.jpg";
 import portfolioCafe from "@/assets/portfolio-cafe.jpg";
 import portfolioCorporate from "@/assets/portfolio-corporate.jpg";
@@ -12,31 +12,31 @@ const projects = [
     title: "Elite Fitness",
     category: "Fitness & Gym",
     description: "A premium fitness platform with dark luxury aesthetics and gold accents.",
-    image: portfolioFitness,
+    images: [portfolioFitness, portfolioCafe, portfolioCorporate],
   },
   {
     title: "Artisan Bistro",
     category: "Café & Restaurant",
     description: "An elegant dining experience website with warm, inviting visuals.",
-    image: portfolioCafe,
+    images: [portfolioCafe, portfolioFitness, portfolioFashion],
   },
   {
     title: "Nexus Corp",
     category: "Corporate Business",
     description: "A clean, professional corporate site with modern simplicity.",
-    image: portfolioCorporate,
+    images: [portfolioCorporate, portfolioCreative, portfolioFitness],
   },
   {
     title: "Maison Noir",
     category: "Fashion E-commerce",
     description: "A high-end fashion boutique with sophisticated product displays.",
-    image: portfolioFashion,
+    images: [portfolioFashion, portfolioCafe, portfolioCreative],
   },
   {
     title: "Studio Flux",
     category: "Creative Portfolio",
     description: "A bold creative portfolio showcasing dramatic visuals and artistry.",
-    image: portfolioCreative,
+    images: [portfolioCreative, portfolioFashion, portfolioCorporate],
   },
 ];
 
@@ -44,6 +44,33 @@ const Portfolio = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openGallery = (project: typeof projects[0]) => {
+    setSelectedProject(project);
+    setCurrentImageIndex(0);
+  };
+
+  const closeGallery = () => {
+    setSelectedProject(null);
+    setCurrentImageIndex(0);
+  };
+
+  const nextImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) => 
+        prev === selectedProject.images.length - 1 ? 0 : prev + 1
+      );
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) => 
+        prev === 0 ? selectedProject.images.length - 1 : prev - 1
+      );
+    }
+  };
 
   return (
     <section id="portfolio" className="section-padding relative overflow-hidden">
@@ -83,39 +110,25 @@ const Portfolio = () => {
               className={`${index === 0 ? "md:col-span-2 lg:col-span-2" : ""}`}
             >
               <div
-                onClick={() => setSelectedProject(project)}
-                className="portfolio-card group aspect-[4/3] cursor-pointer"
+                onClick={() => openGallery(project)}
+                className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-lg"
               >
                 <img
-                  src={project.image}
+                  src={project.images[0]}
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 lg:p-8">
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 lg:p-8">
                   <span className="font-body text-xs tracking-widest uppercase text-primary mb-2">
                     {project.category}
                   </span>
                   <h3 className="font-display text-2xl lg:text-3xl font-light mb-2">
                     {project.title}
                   </h3>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <ExternalLink size={16} />
-                    <span className="font-body text-sm">View Project</span>
-                  </div>
-                </div>
-                {/* Always visible overlay on hover */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8 opacity-0 hover:opacity-100 transition-opacity duration-500 bg-gradient-to-t from-background via-background/60 to-transparent">
-                  <span className="font-body text-xs tracking-widest uppercase text-primary mb-2">
-                    {project.category}
+                  <span className="font-body text-sm text-muted-foreground">
+                    Click to view gallery
                   </span>
-                  <h3 className="font-display text-2xl lg:text-3xl font-light mb-2">
-                    {project.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <ExternalLink size={16} />
-                    <span className="font-body text-sm">View Project</span>
-                  </div>
                 </div>
               </div>
             </motion.div>
@@ -123,62 +136,105 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
-      {selectedProject && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-background/95 backdrop-blur-xl"
-          onClick={() => setSelectedProject(null)}
-        >
+      {/* Gallery Lightbox */}
+      <AnimatePresence>
+        {selectedProject && (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="relative max-w-5xl w-full glass-card overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background/98 backdrop-blur-xl"
+            onClick={closeGallery}
           >
+            {/* Close Button */}
             <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:text-primary transition-colors"
+              onClick={closeGallery}
+              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-foreground/10 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-foreground/20 transition-colors"
             >
-              <X size={20} />
+              <X size={24} />
             </button>
-            <div className="grid md:grid-cols-2">
-              <div className="aspect-[4/3] md:aspect-auto">
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <span className="font-body text-xs tracking-widest uppercase text-primary mb-4">
+
+            {/* Gallery Content */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25 }}
+              className="relative w-full max-w-6xl mx-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Project Info */}
+              <div className="text-center mb-6">
+                <span className="font-body text-xs tracking-widest uppercase text-primary mb-2 block">
                   {selectedProject.category}
                 </span>
-                <h3 className="font-display text-3xl lg:text-4xl font-light mb-4">
+                <h3 className="font-display text-3xl lg:text-4xl font-light mb-2">
                   {selectedProject.title}
                 </h3>
-                <p className="font-body text-muted-foreground leading-relaxed mb-8">
+                <p className="font-body text-muted-foreground max-w-lg mx-auto">
                   {selectedProject.description}
                 </p>
-                <div className="flex gap-4">
-                  <button className="btn-luxury">
-                    Visit Site
-                  </button>
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="btn-outline-luxury"
-                  >
-                    Close
-                  </button>
-                </div>
               </div>
-            </div>
+
+              {/* Main Image */}
+              <div className="relative aspect-[16/10] rounded-lg overflow-hidden bg-muted">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentImageIndex}
+                    src={selectedProject.images[currentImageIndex]}
+                    alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-cover"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </AnimatePresence>
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </div>
+
+              {/* Thumbnail Navigation */}
+              <div className="flex justify-center gap-3 mt-6">
+                {selectedProject.images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`w-20 h-14 rounded-md overflow-hidden transition-all duration-300 ${
+                      idx === currentImageIndex 
+                        ? "ring-2 ring-primary scale-105" 
+                        : "opacity-50 hover:opacity-80"
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt={`Thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+
+              {/* Image Counter */}
+              <p className="text-center mt-4 font-body text-sm text-muted-foreground">
+                {currentImageIndex + 1} / {selectedProject.images.length}
+              </p>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 };
