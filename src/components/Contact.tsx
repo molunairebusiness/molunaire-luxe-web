@@ -56,45 +56,60 @@ const Contact = () => {
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
-      {/* Elegant Background */}
+      {/* Dynamic Animated Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-navy/30 to-navy/50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-navy via-secondary to-navy-light" />
         
-        {/* Decorative light beams */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-1/2 bg-gradient-to-b from-champagne/30 via-champagne/10 to-transparent" />
-      </div>
-      
-      {/* Floating orbs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div 
-          className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full"
+        {/* Large glowing orbs */}
+        <motion.div
+          className="absolute -top-1/4 left-1/4 w-[600px] h-[600px] rounded-full"
           style={{
-            background: "radial-gradient(circle, hsl(var(--champagne) / 0.08) 0%, transparent 70%)",
+            background: "radial-gradient(circle, hsl(var(--champagne) / 0.2) 0%, transparent 60%)",
+            filter: "blur(60px)",
           }}
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div 
-          className="absolute -top-32 -left-32 w-[400px] h-[400px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, hsl(var(--silver) / 0.06) 0%, transparent 70%)",
-          }}
-          animate={{
-            scale: [1.1, 1, 1.1],
-            opacity: [0.2, 0.4, 0.2],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.15, 1],
           }}
           transition={{
             duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
           }}
+        />
+        <motion.div
+          className="absolute -bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full"
+          style={{
+            background: "radial-gradient(circle, hsl(var(--silver) / 0.15) 0%, transparent 60%)",
+            filter: "blur(50px)",
+          }}
+          animate={{
+            x: [0, -40, 0],
+            y: [0, -20, 0],
+            scale: [1.1, 1, 1.1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        {/* Animated lines */}
+        <motion.div
+          className="absolute top-0 left-1/3 w-[1px] h-full bg-gradient-to-b from-champagne/40 via-champagne/10 to-transparent"
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          transition={{ duration: 1.5 }}
+          style={{ originY: 0 }}
+        />
+        <motion.div
+          className="absolute top-0 right-1/3 w-[1px] h-full bg-gradient-to-b from-silver/30 via-silver/10 to-transparent"
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          transition={{ duration: 1.5, delay: 0.3 }}
+          style={{ originY: 0 }}
         />
       </div>
 

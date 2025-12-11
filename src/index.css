@@ -6,67 +6,67 @@
 
 @layer base {
   :root {
-    /* Molunaire Luxury Color Palette */
-    --background: 231 64% 6%;
+    /* Molunaire Luxury Color Palette - Brighter & More Vibrant */
+    --background: 231 45% 12%;
     --foreground: 0 0% 98%;
 
-    --card: 231 50% 10%;
+    --card: 231 40% 16%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 231 50% 10%;
+    --popover: 231 40% 16%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 35 25% 78%;
-    --primary-foreground: 231 64% 11%;
+    --primary: 38 35% 75%;
+    --primary-foreground: 231 50% 12%;
 
-    --secondary: 231 40% 15%;
+    --secondary: 231 35% 22%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 231 30% 18%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 231 25% 28%;
+    --muted-foreground: 0 0% 72%;
 
-    --accent: 0 0% 75%;
-    --accent-foreground: 231 64% 11%;
+    --accent: 38 30% 82%;
+    --accent-foreground: 231 50% 12%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 231 30% 20%;
-    --input: 231 30% 20%;
-    --ring: 35 25% 78%;
+    --border: 231 25% 30%;
+    --input: 231 25% 30%;
+    --ring: 38 35% 75%;
 
     --radius: 0.5rem;
 
-    /* Custom Luxury Colors */
-    --navy: 231 64% 11%;
-    --navy-light: 231 50% 18%;
-    --champagne: 35 25% 78%;
-    --champagne-light: 35 20% 85%;
-    --silver: 0 0% 75%;
-    --silver-light: 0 0% 85%;
+    /* Custom Luxury Colors - Brighter & Warmer */
+    --navy: 231 45% 15%;
+    --navy-light: 231 40% 24%;
+    --champagne: 38 45% 75%;
+    --champagne-light: 38 40% 85%;
+    --silver: 220 15% 80%;
+    --silver-light: 220 10% 88%;
 
     /* Gradients */
-    --gradient-luxury: linear-gradient(135deg, hsl(231 64% 11%) 0%, hsl(231 50% 18%) 100%);
-    --gradient-champagne: linear-gradient(135deg, hsl(35 25% 78%) 0%, hsl(35 20% 85%) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    --gradient-luxury: linear-gradient(135deg, hsl(231 45% 15%) 0%, hsl(231 40% 24%) 100%);
+    --gradient-champagne: linear-gradient(135deg, hsl(38 45% 75%) 0%, hsl(38 40% 85%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%);
 
-    /* Shadows */
-    --shadow-luxury: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 60px rgba(215, 210, 203, 0.15);
-    --shadow-card: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+    /* Shadows - More Pronounced Glow */
+    --shadow-luxury: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 80px rgba(215, 195, 170, 0.25);
+    --shadow-card: 0 10px 40px -10px rgba(0, 0, 0, 0.25);
 
     /* Typography */
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Inter', sans-serif;
 
-    --sidebar-background: 231 64% 8%;
+    --sidebar-background: 231 45% 10%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 35 25% 78%;
-    --sidebar-primary-foreground: 231 64% 11%;
-    --sidebar-accent: 231 40% 15%;
+    --sidebar-primary: 38 45% 75%;
+    --sidebar-primary-foreground: 231 50% 12%;
+    --sidebar-accent: 231 35% 22%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 231 30% 20%;
-    --sidebar-ring: 35 25% 78%;
+    --sidebar-border: 231 25% 30%;
+    --sidebar-ring: 38 45% 75%;
   }
 
   .dark {
