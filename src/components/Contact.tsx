@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Send, CheckCircle, Sparkles } from "lucide-react";
+import { Send, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -55,85 +55,19 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      {/* Dynamic Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-secondary to-navy-light" />
-        
-        {/* Large glowing orbs */}
-        <motion.div
-          className="absolute -top-1/4 left-1/4 w-[600px] h-[600px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, hsl(var(--champagne) / 0.2) 0%, transparent 60%)",
-            filter: "blur(60px)",
-          }}
-          animate={{
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, hsl(var(--silver) / 0.15) 0%, transparent 60%)",
-            filter: "blur(50px)",
-          }}
-          animate={{
-            x: [0, -40, 0],
-            y: [0, -20, 0],
-            scale: [1.1, 1, 1.1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        
-        {/* Animated lines */}
-        <motion.div
-          className="absolute top-0 left-1/3 w-[1px] h-full bg-gradient-to-b from-champagne/40 via-champagne/10 to-transparent"
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          transition={{ duration: 1.5 }}
-          style={{ originY: 0 }}
-        />
-        <motion.div
-          className="absolute top-0 right-1/3 w-[1px] h-full bg-gradient-to-b from-silver/30 via-silver/10 to-transparent"
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          transition={{ duration: 1.5, delay: 0.3 }}
-          style={{ originY: 0 }}
-        />
-      </div>
-
-      <div className="container mx-auto px-6 lg:px-12 relative z-10" ref={ref}>
-        <div className="max-w-4xl mx-auto">
+    <section id="contact" className="section-padding bg-secondary">
+      <div className="container mx-auto px-6 lg:px-12" ref={ref}>
+        <div className="max-w-3xl mx-auto">
           {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={isInView ? { scale: 1 } : {}}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 mb-6"
-            >
-              <Sparkles className="w-4 h-4 text-champagne" />
-              <span className="font-body text-xs tracking-[0.3em] uppercase text-champagne">
-                Get In Touch
-              </span>
-              <Sparkles className="w-4 h-4 text-champagne" />
-            </motion.div>
+            <span className="font-body text-xs tracking-[0.3em] uppercase text-champagne mb-4 block">
+              Get In Touch
+            </span>
             
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6">
               Let's Build Something
@@ -141,153 +75,127 @@ const Contact = () => {
             </h2>
             
             <motion.div
-              className="w-24 h-[1px] bg-gradient-to-r from-transparent via-champagne/60 to-transparent mx-auto mb-8"
+              className="w-16 h-[1px] bg-champagne/40 mx-auto mb-8"
               initial={{ scaleX: 0 }}
               animate={isInView ? { scaleX: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
             />
             
-            <p className="font-body text-muted-foreground max-w-xl mx-auto text-lg">
+            <p className="font-body text-muted-foreground max-w-md mx-auto">
               Ready to elevate your digital presence? We'd love to hear from you.
             </p>
           </motion.div>
 
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative">
-              {/* Glow effect behind card */}
-              <div className="absolute inset-0 bg-gradient-to-b from-champagne/10 via-transparent to-silver/10 blur-3xl -z-10" />
-              
-              <div className="backdrop-blur-xl bg-background/40 border border-champagne/10 rounded-2xl p-8 md:p-12 lg:p-16 relative overflow-hidden">
-                {/* Subtle corner accents */}
-                <div className="absolute top-0 left-0 w-24 h-24">
-                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-champagne/40 to-transparent" />
-                  <div className="absolute top-0 left-0 w-[1px] h-full bg-gradient-to-b from-champagne/40 to-transparent" />
-                </div>
-                <div className="absolute bottom-0 right-0 w-24 h-24">
-                  <div className="absolute bottom-0 right-0 w-full h-[1px] bg-gradient-to-l from-champagne/40 to-transparent" />
-                  <div className="absolute bottom-0 right-0 w-[1px] h-full bg-gradient-to-t from-champagne/40 to-transparent" />
-                </div>
-
-                {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                    >
-                      <CheckCircle className="w-20 h-20 text-champagne mx-auto mb-6" />
-                    </motion.div>
-                    <h3 className="font-display text-3xl font-light mb-4">Message Sent</h3>
-                    <p className="text-muted-foreground text-lg">We'll be in touch shortly.</p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-10">
-                    <div className="grid md:grid-cols-2 gap-10">
-                      {/* Name Field */}
-                      <div className="relative group">
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          placeholder=" "
-                          className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne transition-colors duration-300"
-                        />
-                        <label className="absolute left-0 top-4 font-body text-sm text-muted-foreground transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-champagne peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
-                          Name
-                        </label>
-                        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-champagne transition-all duration-300 group-focus-within:w-full" />
-                      </div>
-
-                      {/* Email Field */}
-                      <div className="relative group">
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          placeholder=" "
-                          className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne transition-colors duration-300"
-                        />
-                        <label className="absolute left-0 top-4 font-body text-sm text-muted-foreground transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-champagne peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
-                          Email
-                        </label>
-                        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-champagne transition-all duration-300 group-focus-within:w-full" />
-                      </div>
-                    </div>
-
-                    {/* Company Field */}
-                    <div className="relative group">
+            <div className="bg-background/50 backdrop-blur-sm border border-border/30 rounded-lg p-8 md:p-12">
+              {isSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-12"
+                >
+                  <CheckCircle className="w-16 h-16 text-champagne mx-auto mb-6" />
+                  <h3 className="font-display text-2xl font-light mb-3">Message Sent</h3>
+                  <p className="text-muted-foreground">We'll be in touch shortly.</p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {/* Name Field */}
+                    <div className="relative">
                       <input
                         type="text"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder=" "
-                        className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne transition-colors duration-300"
-                      />
-                      <label className="absolute left-0 top-4 font-body text-sm text-muted-foreground transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-champagne peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
-                        Company (Optional)
-                      </label>
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-champagne transition-all duration-300 group-focus-within:w-full" />
-                    </div>
-
-                    {/* Message Field */}
-                    <div className="relative group">
-                      <textarea
-                        name="message"
-                        value={formData.message}
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
                         required
-                        rows={4}
                         placeholder=" "
-                        className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne transition-colors duration-300 resize-none"
+                        className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne/60 transition-colors duration-300"
                       />
                       <label className="absolute left-0 top-4 font-body text-sm text-muted-foreground transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-champagne peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
-                        Your Message
+                        Name
                       </label>
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-champagne transition-all duration-300 group-focus-within:w-full" />
                     </div>
 
-                    {/* Submit Button */}
-                    <div className="flex justify-center pt-6">
-                      <motion.button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="relative group px-12 py-4 bg-gradient-to-r from-champagne/90 to-champagne text-navy font-body text-sm tracking-[0.2em] uppercase overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-                        whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                        whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                      >
-                        <span className="relative z-10 flex items-center gap-3">
-                          {isSubmitting ? (
-                            <>
-                              <div className="w-5 h-5 border-2 border-navy/30 border-t-navy rounded-full animate-spin" />
-                              Sending...
-                            </>
-                          ) : (
-                            <>
-                              Send Message
-                              <Send size={16} />
-                            </>
-                          )}
-                        </span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-champagne to-silver opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </motion.button>
+                    {/* Email Field */}
+                    <div className="relative">
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        placeholder=" "
+                        className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne/60 transition-colors duration-300"
+                      />
+                      <label className="absolute left-0 top-4 font-body text-sm text-muted-foreground transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-champagne peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
+                        Email
+                      </label>
                     </div>
-                  </form>
-                )}
-              </div>
+                  </div>
+
+                  {/* Company Field */}
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder=" "
+                      className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne/60 transition-colors duration-300"
+                    />
+                    <label className="absolute left-0 top-4 font-body text-sm text-muted-foreground transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-champagne peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
+                      Company (Optional)
+                    </label>
+                  </div>
+
+                  {/* Message Field */}
+                  <div className="relative">
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      placeholder=" "
+                      className="peer w-full bg-transparent border-b border-border/50 py-4 font-body text-foreground placeholder-transparent focus:outline-none focus:border-champagne/60 transition-colors duration-300 resize-none"
+                    />
+                    <label className="absolute left-0 top-4 font-body text-sm text-muted-foreground transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-champagne peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
+                      Your Message
+                    </label>
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="flex justify-center pt-4">
+                    <motion.button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="px-10 py-4 bg-champagne text-navy font-body text-sm tracking-[0.15em] uppercase hover:bg-champagne-light transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                      whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                    >
+                      <span className="flex items-center gap-3">
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-navy/30 border-t-navy rounded-full animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Send Message
+                            <Send size={14} />
+                          </>
+                        )}
+                      </span>
+                    </motion.button>
+                  </div>
+                </form>
+              )}
             </div>
           </motion.div>
         </div>
