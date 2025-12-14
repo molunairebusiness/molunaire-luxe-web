@@ -159,10 +159,9 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-3 text-champagne/60 hover:text-champagne transition-colors duration-500"
+          className="flex items-center justify-center text-champagne/60 hover:text-champagne transition-colors duration-500"
         >
-          <span className="text-xs font-body tracking-[0.3em] uppercase">Discover</span>
-          <ArrowDown size={18} strokeWidth={1} />
+          <ArrowDown size={20} strokeWidth={1} />
         </motion.div>
       </motion.button>
     </section>
